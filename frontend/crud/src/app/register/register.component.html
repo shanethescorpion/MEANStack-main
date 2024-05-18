@@ -1,0 +1,83 @@
+<form method="post" (ngSubmit)="onSubmit($event)" [noValidate]="false">
+  <div class="w-full h-screen flex justify-center items-center bg-pink-200">
+    <div  class="w-[50em] h-[48em] rounded-lg bg-white/60 shadow flex flex-col flex-nowrap justify-center items-center border-[2px] text-[#e8e8e8] px-[3em]">
+      <img ngSrc="assets/logo.png" width="70" height="70" />
+      <h2 class="text-slate-800 text-2xl">Sign up!</h2>
+      <div class="text-secondary text-slate-800">Welcome to E-Messenger.</div>
+      <div class="w-full flex flex-col md:flex-row">
+        <div class="w-full md:w-1/2 text-center pl-5 pr-3">
+          <div class="signup-form">
+            <label class="username" for="username">
+              <input type="text" name="username" placeholder="Username" (input)="onUsernameChange()" [(ngModel)]="user.username" [required]="true" />
+              <i *ngIf="!!user.username && errors.username" class="w-[25px] h-[25px] bi bi-x-circle-fill text-red-500"></i>
+              <i *ngIf="!!user.username && !errors.username" class="w-[25px] h-[25px] bi bi-check-circle-fill text-green-500"></i>
+            </label>
+            <label class="password" for="password">
+              <input type="password" name="password" placeholder="Password" (input)="onPasswordChange()" [(ngModel)]="user.password" [required]="true" />
+              <i *ngIf="!!user.password && errors.password" class="w-[25px] h-[25px] bi bi-x-circle-fill text-red-500"></i>
+              <i *ngIf="!!user.password && !errors.password" class="w-[25px] h-[25px] bi bi-check-circle-fill text-green-500"></i>
+            </label>
+            <label class="repeatpassword" for="repeatpassword">
+              <input type="password" id="repeatpassword" name="rpass" (input)="onRepeatPasswordChange()" placeholder="Repeat Password" [(ngModel)]="user.rpass" [required]="true" />
+              <i *ngIf="!!user.rpass && errors.rpass" class="w-[25px] h-[25px] bi bi-x-circle-fill text-red-500"></i>
+              <i *ngIf="!!user.rpass && !errors.rpass" class="w-[25px] h-[25px] bi bi-check-circle-fill text-green-500"></i>
+            </label>
+          </div>
+          <div class="flex items-center">
+            <div class="w-full">
+              <label for="photoupload" class="relative cursor-pointer group">
+                <div class="rounded-full w-[100px] h-[100px] min-w-[100px] max-w-[100px] min-h-[100px] max-h-[100px] absolute left-[-100%] top-0 hidden group-hover:flex bg-pink-500/20 text-slate-600 font-bold justify-center items-center"><div class="bg-white/50 rounded px-1"><i class="bi bi-upload"></i>Upload</div></div>
+                <img class="shadow rounded-full bg-transparent w-[100px] h-[100px] min-w-[100px] max-w-[100px] min-h-[100px] max-h-[100px] object-cover" [priority]="true" width="100" height="100" [ngSrc]="!tempPhotoUrl ? '/assets/photo-default.jpg' : tempPhotoUrl" alt='profile' />
+              </label>
+              <input type="file" id="photoupload" class="w-full hidden" name="photoupload" accept="image/*" (change)="onDisplayProfilePhoto($event)" />
+            </div>
+          </div>
+          <div class="text-slate-600 max-w-[100px]">Profile Photo</div>
+        </div>
+        <div class="w-full md:w-1/2 text-center pl-3 pr-5">
+          <div class="signup-form">
+            <label class="firstname" for="firstname">
+              <input type="text" name="firstname" [(ngModel)]="user.firstName" placeholder="First Name" [required]="true" />
+            </label>
+            <label class="middlename" for="middlename">
+              <input type="text" name="middlename" [(ngModel)]="user.middleName" placeholder="Middle Name" />
+            </label>
+            <label class="lastname" for="lastname">
+              <input type="text" name="lastname" [(ngModel)]="user.lastName" placeholder="Last Name" [required]="true" />
+            </label>
+            <label class="birthday" for="birthday">
+              <input type="date" name="birthday" [(ngModel)]="user.birthday" placeholder="Birthday" [required]="true" />
+            </label>
+            <label class="gender" for="gender">
+              <select name="gender" [(ngModel)]="user.gender" placeholder='Gender' [required]="true">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </label>
+            <label class="civilstatus" for="civilstatus">
+              <select name="civilstatus" [(ngModel)]="user.civilstatus" placeholder="Civil Status" [required]="true">
+                <option value="Single">Single</option>
+                <option value="Married">Married</option>
+                <option value="Widowed">Widowed</option>
+              </select>
+            </label>
+            <label class="address" for="address">
+              <input type="text" name="address" [(ngModel)]="user.address" placeholder="Address" />
+            </label>
+            <label class="aboutme" for="aboutme">
+              <input type="text" name="aboutme" [(ngModel)]="user.aboutme" placeholder="About Me" />
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col text-center justify-content-center align-items-center">
+        <div class="w-1/2 mx-auto">
+          <button type="submit" class="signup-button">Sign up</button>
+        </div>
+        <div class="login-content">
+          Already have an account? <a [routerLink]="['/']">Login here!</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

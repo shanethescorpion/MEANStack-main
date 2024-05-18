@@ -1,0 +1,96 @@
+<div class="chat-background"></div>
+<div class="container text-white shadow-lg">
+  <div class="flex flex-row h-screen max-h-screen">
+    <div class="w-auto border-l border-t border-b rounded-l-4 p-0 chat-col-menu">
+      <div class="container-fluid overflow-none">
+        <div class="flex flex-col">
+          <div>
+            <div class="profile-info-self-container pl-4">
+              <div class="profile-info-self online">
+                <img
+                  class="rounded-full max-w-[60px] max-h-[60px] min-w-[60px] min-h-[60px]"
+                  [src]="user && user.photo ? apiUrl + '/photos/' + user.photo : '/assets/photo-default.jpg'"
+                  style="width: 2.5em; height: 2.5em;" alt="Profile"
+                  width="100"
+                  height="100"
+                />
+                <div class="profile-info-name">
+                  {{user && user.firstName + ' ' + user.lastName}}
+                  <span>{{user && user.aboutme}}</span>
+                </div>
+              </div>
+              <div class="btn-group dropend">
+                <i type="button" class="dropdown-toggle cursor-pointer" data-bs-toggle="dropdown" aria-expanded="false" color="#8992a3de"></i>
+                <ul class="dropdown-menu">
+                  <li class="dropdown-item">
+                    <div type="button" class="rounded-sm bg-gray-50 p-2 shadow-sm border-1 hover:text-green-600" (click)="showUpdateModal()">Update Account</div>
+                  </li>
+                  <li class="dropdown-item">
+                    <div type="button" class="rounded-sm bg-gray-50 p-2 shadow-sm border-1 hover:text-red-600" (click)="onLogout()"><i class="bi bi-escape"></i> Logout</div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="h-full overflow-x-clip w-full max-w-full min-w-[15em] max-h-[calc(100vh-6em)] p-0 flex flex-col flex-nowrap overflow-auto mt-5 pl-2">
+            <app-chat-contact-group [data]="userContacts" (refresh)="refreshChatConversation()" [selectedContactIndex]="selectedContactIndex" (select)="handleSelectChatContact($event)"></app-chat-contact-group>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col border-end border-top border-bottom rounded-end-4 p-0 bg-conversation">
+      <app-chatbox (onmessage)="refreshChatConversation()" [chatuser]="chatuser"></app-chatbox>
+    </div>
+  </div>
+  <div *ngIf="showModal" class="fixed w-screen h-screen left-0 top-0 z-30 flex flex-col justify-center items-center">
+    <div class="fixed w-screen h-screen left-0 top-0 z-40 blur-2xl bg-slate-700/70" type="button" (click)="closeUpdateModal()"><div class="w-full text-white"></div></div>
+    <div class="relative border-1 border-red-500 max-w-[450px] flex flex-col items-center justify-center rounded-2xl z-50 bg-slate-100">
+      <button class="w-fit text-black self-end me-2 mt-1" (click)="closeUpdateModal()"><i class="bi bi-x-circle hover:text-red-500"></i></button>
+      <form method="put" class="p-4 w-full flex flex-col justify-center items-center" id="frm-update" (ngSubmit)="onSubmitUpdate()">
+        <h3> Update Profile </h3>
+        <div class="input-group mb-2 flex justify-evenly border-1">
+          <span class="input-group-text min-w-[120px]">First Name:</span>
+          <input type="text" name="firstname" class="form-control" [(ngModel)]="updateUser.firstName" placeholder="First Name" required/>
+        </div>
+        <div class="input-group mb-2 flex justify-evenly border-1">
+          <span class="input-group-text min-w-[120px]">Middle Name:</span>
+          <input type="text" name="middlename" class="form-control" [(ngModel)]="updateUser.middleName" placeholder="Middle Name" />
+        </div>
+        <div class="input-group mb-2 flex justify-evenly border-1">
+          <span class="input-group-text min-w-[120px]">Last Name:</span>
+          <input type="text" name="lastname" class="form-control" [(ngModel)]="updateUser.lastName" placeholder="Last Name" required/>
+        </div>
+        <div class="input-group mb-2 flex justify-evenly border-1">
+          <span class="input-group-text min-w-[120px]">Birthday:</span>
+          <input type="date" name="birthday" class="form-control" [(ngModel)]="updateUser.birthday" placeholder="Birthday" required />
+        </div>
+        <div class="input-group mb-2 flex justify-evenly border-1">
+          <span class="input-group-text min-w-[120px]">Gender:</span>
+          <select name="gender" class="form-control" [(ngModel)]="updateUser.gender" required>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+        <div class="input-group mb-2 flex justify-evenly border-1">
+          <span class="input-group-text min-w-[120px]">Civil Status:</span>
+          <select name="gender" class="form-control" name="civilstatus" [(ngModel)]="updateUser.civilstatus" required>
+            <option value="Single">Single</option>
+            <option value="Married">Married</option>
+            <option value="Widowed">Widowed</option>
+          </select>
+        </div>
+        <div class="input-group mb-2 flex justify-evenly border-1">
+          <span class="input-group-text min-w-[120px]">Address:</span>
+          <input type="text" name="address" class="form-control" [(ngModel)]="updateUser.address" placeholder="Address" required/>
+        </div>
+        <div class="input-group mb-2 flex justify-evenly border-1">
+          <span class="input-group-text min-w-[120px]">About Me:</span>
+          <input type="text" name="aboutme" class="form-control" [(ngModel)]="updateUser.aboutme" placeholder="About Me" required/>
+        </div>
+        <div class="form-group mb-2">
+          <button type="submit" class="btn btn-warning">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

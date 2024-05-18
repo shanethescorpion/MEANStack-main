@@ -1,0 +1,40 @@
+<form method="post" (ngSubmit)="onSubmit()">
+  <div class="w-full h-screen flex justify-center items-center bg-pink-200">
+    <div class="w-[25em] h-[30em] rounded-lg bg-white/60 shadow flex flex-col flex-nowrap justify-center items-center border-[2px] text-[#e8e8e8] px-[3em]">
+      <img ngSrc="assets/logo.png" [priority]="true" width="120" height="120" />
+      <h2 class="text-slate-800 text-2xl">Log in!</h2>
+      <div class="text-secondary text-slate-800">Welcome to E-Messenger.</div>
+      <div class="flex flex-col flex-nowrap justify-center items-center w-full mt-[2em] mb-4">
+        <label for="username" class="relative inline-flex w-full hover:after:border-t-[2px]:border-[rgb(200,100,100)] after:text-transparent:left-0:bottom-0:h-[0.5em]:border-t-[2px]:border-[#a8a8a88a]:translate-y-[-250%] text-sm font-medium cursor-pointer">
+          <span class="absolute left-2 top-1/4 bg-usericon"></span>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            [(ngModel)]="user.username"
+            placeholder="Username"
+            class="w-full px-9 py-[10px] bg-white border border-pink-300 rounded-lg outline-none"
+          />
+        </label>
+      </div>
+
+      <div class="flex flex-col flex-nowrap justify-center items-center w-full mb-[2em]">
+        <label for="password" class="relative inline-flex w-full hover:after:border-t-[2px]:border-[rgb(200,100,100)] after:text-transparent:left-0:bottom-0:h-[0.5em]:border-t-[2px]:border-[#a8a8a88a]:translate-y-[-250%] text-sm font-medium cursor-pointer">
+          <span class="absolute left-2 top-1/4 bg-lockicon"></span>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            [(ngModel)]="user.password"
+            placeholder="Password"
+            class="w-full px-9 py-[10px] bg-white border border-pink-300 rounded-lg outline-none"
+          />
+        </label>
+      </div>
+      <button type="submit" class="login-button">Log in</button>
+      <div class="text-slate-700">
+        New user? <a [routerLink]="['/register']" class="text-[rgb(200,100,100)] font-bold transform-none hover:text-pink-500">Register here!</a>
+      </div>
+    </div>
+  </div>
+</form>

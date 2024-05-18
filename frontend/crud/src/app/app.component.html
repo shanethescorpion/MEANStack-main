@@ -1,0 +1,16 @@
+<div *ngIf="isLoading()">
+  <div class="bg-pink-300 w-screen h-screen flex flex-col justify-center items-center">
+    <div class="animate-spin"><i class="bi bi-arrow-repeat text-black font-bold text-4xl"></i></div>
+  </div>
+</div>
+
+<main *ngIf="!isLoading() && isLoggedIn()" class="main">
+  <router-outlet />
+</main>
+
+<div *ngIf="!isLoading() && !isLoggedIn()">
+  <app-login *ngIf="isRootPage(); else RegisterPage" />
+  <ng-template #RegisterPage>
+    <router-outlet />
+  </ng-template>
+</div>

@@ -1,0 +1,17 @@
+@for (item of data; track item.userid) {
+  <div type="button" (click)="handleClick($index)" [class]="'chat-contact' + (item.isonline ? ' online' : '') + ($index === selectedContactIndex ? ' bg-pink-400' : 'bg-slate-700/20') + ' cursor-pointer text-white hover:text-black hover:bg-sky-200/70 p-4 rounded-lg mb-2'">
+    <div class="chat-contact-details">
+      <div class="contact-name flex justify-start items-center gap-x-2">
+        <img class="rounded-full max-h-[50px] max-w-[50px] min-w-[50px] min-h-[50px] object-cover" width="100" height="100" priority="true" [ngSrc]="getPhotoPath(item.profilephoto)" style="width: 2.5em; height: 2.5em;" alt="name" />
+        <div>{{item.name && item.name.length > 18 ? item.name.substring(0, 15) + ' ..' : item.name}}</div>
+        <span *ngIf="item.chatid" class="text-[10px] self-start italic">{{formatDate(item.time)}}</span>
+      </div>
+      <div class="contact-message italic">
+        {{ item.aboutme }}
+      </div>
+    </div>
+  </div>
+}
+@empty {
+  <div class="text-white flex justify-center items-center h-screen h6">No users to start chating.</div>
+}
